@@ -1,0 +1,8 @@
+Control and Monitoring Motor 3 Phase using Fuzzy Logic
+
+
+MCU: ESP32
+Connectivity: WiFi
+Communication: ModbusRTU (RS485)
+Inverter: Delta VFD Series
+Display: LCD 16x2 (I2C)
