@@ -5,4 +5,4 @@ MCU: ESP32
 Connectivity: WiFi
 Communication: ModbusRTU (RS485)
 Inverter: Delta VFD Series
-Display: LCD 16x2 (I2C)
+Display: LCD 16x4 (I2C)
