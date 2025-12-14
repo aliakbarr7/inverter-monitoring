@@ -1,9 +1,10 @@
 #pragma once
 #include <Arduino.h>
 
-class InverterVFD {
+class InverterVFD
+{
 public:
-  InverterVFD(HardwareSerial &serial, int dePin, unsigned long baud = 9600);
+  InverterVFD(HardwareSerial &serial, unsigned long baud = 9600);
   void begin(uint8_t modbusAddress = 1);
   void setBaud(unsigned long baud);
   void setModbusAddress(uint8_t addr);
@@ -14,18 +15,16 @@ public:
   bool stop();
   bool readOutputFrequency(float &hz);
   bool readOutputCurrent(float &ampere);
+  bool readOutputVoltage(float &voltage);
   void setDebug(bool en);
 
 private:
   HardwareSerial &modbusSerial;
-  int pinDE;
   unsigned long currentBaud;
   uint8_t slaveAddr;
   bool debug;
 
   uint16_t calcCRC(const uint8_t *buf, uint16_t len);
-  void txEnable();
-  void txDisable();
   bool sendRequestAndReceive(const uint8_t *req, uint16_t reqLen,
                              uint8_t *resp, uint16_t &respLen,
                              uint16_t timeout_ms);
@@ -33,8 +32,9 @@ private:
   static void u16ToBe(uint8_t *buf, uint16_t v);
 
   static const uint16_t REG_FREQ_COMMAND = 0x2001;
-  static const uint16_t REG_RUN_COMMAND  = 0x2000;
-  static const uint16_t REG_OUTPUT_FREQ  = 0x2103;
-  static const uint16_t REG_OUTPUT_CURR  = 0x2104;
+  static const uint16_t REG_CONTROLL_COMMAND = 0x2000;
+  static const uint16_t REG_OUTPUT_FREQ = 0x2103;
+  static const uint16_t REG_OUTPUT_CURR = 0x2104;
+  static const uint16_t REG_OUTPUT_VOLTAGE = 0x2109;
   static const float SCALE_FREQ;
 };
